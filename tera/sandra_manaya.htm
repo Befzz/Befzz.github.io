@@ -8,8 +8,8 @@ BODY{
 }
 #rnd_color{
 	width:255px;
-	height:40px;
-	border:1px solid black;
+	height:30px;
+	border:1px solid gray;
 	padding:16px 0px 0px 0px;
 	margin:10px;
 	cursor:ew-resize;
@@ -20,13 +20,14 @@ BODY{
 	display:inline-block;
 }
 #span_help{
-	padding:6px;
+	padding:6px 10px;
 	font-weight:bold;
 	cursor:hand;
 	border:1px solid gray;
 	background-color:white;
 	margin:0px 0px 0px 10px;
 	display:inline-block;
+	font-family: 'Open Sans', sans-serif;
 }
 #top_info{
 	border-bottom: 1px solid rgba(0,0,0,.4);
@@ -53,20 +54,65 @@ BODY{
 	background-color: #000;
 	text-decoration: underline;
 }
+#data_toggle{
+	border:1px solid gray;
+	padding:5px;
+	display:inline-block;
+	font-family: 'Open Sans', sans-serif;
+	cursor: hand;
+	background-color: rgba(200,200,200,.6);
+	margin:10px;
+}
 </style>
 <title>TERA(c): Sandra Manaya (messenger)</title>
 </head>
 <body>
 <div id="top_info">Image hosting by <a style="color:rgb(133, 191, 37)" href="http://imgur.com">Imgur.</a> WEB hosting by <a style="color:rgb(65, 131, 196)" href="http://github.com">GitHub</a></div>
 <div id="prj_name">TERA(c): <b>Sandra Manaya</b> (messenger) <a href="https://drive.google.com/file/d/0Bw4aUkFXvXqXUzNPcE5EM2pXS1k/view?usp=sharing">Full size GIF ) 1080p ) 26 Mb ) Gdrive</a></div>
-<div><img src="http://i.imgur.com/YfxZhWu.gif" /></div>
-<span id="rnd_color">&nbsp;</span><span id="span_help" title="x - brightness, y - change speed">?</span>
+<span id="rnd_color">&nbsp;</span><span id="span_help" title="x - brightness, y - change speed">?</span><div id="data_toggle">&nbsp;</div>
+<div id="gif_container"><img /></div>
+<div id="vid_container"><video poster="http://i.imgur.com/YfxZhWuh.jpg" preload="auto" autoplay="autoplay" loop="loop">
+<source src="http://i.imgur.com/YfxZhWu.webm" type="video/webm">
+<source src="http://i.imgur.com/YfxZhWu.mp4" type="video/mp4">
+</video></div>
 <script type="text/javascript">
   var d=document,img;
   var is_mousedown = false;
+  
+  var gif_src = "http://i.imgur.com/YfxZhWu.gif";
+  var is_gif_active = false;
+  
   addEventListener('load',function(){
     div_rnd = d.getElementById("rnd_color");
 	span_white = d.getElementById("span_help");
+	div_toggle = d.getElementById("data_toggle");
+	gif_container = d.getElementById("gif_container");
+	vid_container = d.getElementById("vid_container");
+	
+	var vid = vid_container.childNodes[0];
+	var img = gif_container.childNodes[0];
+	
+	data_toggle.title = "1 Mbyte / 8 Mbytes";
+	function set_data_toggle_text(to_gif) {
+		div_toggle.innerHTML = to_gif?"webm / <b>gif</b>":"<b>webm</b> / gif";
+	}
+    div_toggle.addEventListener('mousedown',function(){
+		is_gif_active = !is_gif_active;
+		if( is_gif_active ) {
+			vid.pause();
+			vid_container.style.display = 'none';
+			gif_container.style.display = 'block';
+			if( !img.hasAttribute('src') ) {
+				img.src = gif_src;
+			}
+		} else {
+			vid_container.style.display = 'block';
+			gif_container.style.display = 'none';
+			vid.play();
+			img.removeAttribute("src");
+		}
+		set_data_toggle_text(is_gif_active);
+    });
     div_rnd.addEventListener('mousemove',function(){
 		if(is_mousedown){
 			d.body.style.backgroundColor = ret_rnd_color(event.offsetX, event.offsetY);
@@ -86,11 +132,13 @@ BODY{
     span_white.addEventListener('click',function(){
 		d.body.style.backgroundColor = "#fff";
     });
+	
+	set_data_toggle_text()
   });
   var color=[255,255,255],
 	color_max_step = 0;
   function rri(r,i){
-	var step = (Math.random() > .5? 1:-1) * Math.round(Math.random() * (42-color_max_step));
+	var step = (Math.random() > .5? 1:-1) * Math.round(Math.random() * (32-color_max_step));
 	var new_color = color[i]+step
 	if(new_color > r) {
 		color[i] = r;
