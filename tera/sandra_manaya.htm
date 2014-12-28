@@ -1,0 +1,109 @@
+<html><head>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=cyrillic-ext,latin' rel='stylesheet' type='text/css'>
+<style type="text/css">
+BODY{
+	padding: 5px;
+	margin: 0;
+	cursor: default;
+}
+#rnd_color{
+	width:255px;
+	height:40px;
+	border:1px solid black;
+	padding:10px 0px 0px 0px;
+	margin:10px;
+	cursor:ew-resize;
+	text-align:center;
+	background: linear-gradient(45deg, #000, #fff);
+	font-weight:bold;
+	display:inline-block;
+}
+#span_help{
+	padding:6px;
+	font-weight:bold;
+	cursor:hand;
+	border:1px solid gray;
+	background-color:white;
+	margin:0px 0px 0px 10px;
+	display:inline-block;
+}
+#top_info{
+	border-bottom: 1px solid rgba(0,0,0,.4);
+	text-align: right;
+	padding: 6px 40px 3px 0px;
+}
+#prj_name{
+	color:rgba(0,0,0,.5);
+	font-family: 'Open Sans', sans-serif;
+	font-size:30px;
+	padding:7px;
+}
+#prj_name a{
+	text-decoration: none;
+	font-size:14px;
+	color:rgb(209, 72, 54);
+}
+#top_info a{
+	text-decoration: none;
+}
+#prj_name a:hover,#top_info a:hover{
+	text-decoration: underline;
+	color: blue;
+}
+</style>
+</head>
+<body><a href="xd">test</a>
+<div id="top_info">Image hosting by <a style="color:rgb(133, 191, 37)" href="http://imgur.com">Imgur.</a> WEB hosting by <a style="color:rgb(65, 131, 196)" href="http://github.com">GitHub</a></div>
+<div id="prj_name">TERA(c): <b>Sandra Manaya</b> (messenger) <a href="https://drive.google.com/file/d/0Bw4aUkFXvXqXUzNPcE5EM2pXS1k/view?usp=sharing">Full size GIF ) 1080p ) 26 Mb ) Gdrive</a></div>
+<div><img src="http://i.imgur.com/YfxZhWu.gif" /></div>
+<span id="rnd_color">&nbsp;</span><span id="span_help" title="x - brightness, y - change speed">?</span>
+<script type="text/javascript">
+  var d=document,img;
+  var is_mousedown = false;
+  addEventListener('load',function(){
+    div_rnd = d.getElementById("rnd_color");
+	span_white = d.getElementById("span_help");
+    div_rnd.addEventListener('mousemove',function(){
+		if(is_mousedown){
+			d.body.style.backgroundColor = ret_rnd_color(event.offsetX, event.offsetY);
+			div_rnd.childNodes[0].nodeValue = d.body.style.backgroundColor;
+			div_rnd.style.color = d.body.style.backgroundColor;
+			console.log(event.offsetY)
+		}
+    });
+    div_rnd.addEventListener('mouseup',function(){
+		is_mousedown = false;
+    });
+    div_rnd.addEventListener('mousedown',function(){
+		is_mousedown = true;
+    });
+	d.body.addEventListener('selectstart',function(){
+		event.preventDefault()
+		return false;
+	});
+    span_white.addEventListener('click',function(){
+		d.body.style.backgroundColor = "#fff";
+    });
+  });
+  var color=[255,255,255],
+	color_max_step = 0;
+  function rri(r,i){
+	var step = (Math.random() > .5? 1:-1) * Math.round(Math.random() * (42-color_max_step));
+	var new_color = color[i]+step
+	if(new_color > r) {
+		color[i] = r;
+	} else if(new_color < 0) {
+		color[i] = 0;
+	} else {
+		color[i] = new_color;
+	}
+    return color[i];
+  }
+  function rr(r){
+    return Math.round(Math.random()*r)
+  }
+  function ret_rnd_color(r, max_step){
+	color_max_step = max_step;
+    return "rgb(" + rri(r,0) + ","+rri(r,1)+","+rri(r,2) + ")";
+  }
+</script>
