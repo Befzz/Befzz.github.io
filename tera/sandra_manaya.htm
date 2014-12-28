@@ -1,10 +1,17 @@
 <html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=cyrillic-ext,latin' rel='stylesheet' type='text/css'>
 <style type="text/css">
 BODY{
 	padding: 5px;
 	margin: 0;
 	cursor: default;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 #rnd_color{
 	width:255px;
@@ -22,7 +29,7 @@ BODY{
 #span_help{
 	padding:6px 10px;
 	font-weight:bold;
-	cursor:hand;
+	cursor:pointer;
 	border:1px solid gray;
 	background-color:white;
 	margin:0px 0px 0px 10px;
@@ -59,7 +66,7 @@ BODY{
 	padding:5px;
 	display:inline-block;
 	font-family: 'Open Sans', sans-serif;
-	cursor: hand;
+	cursor: pointer;
 	background-color: rgba(200,200,200,.6);
 	margin:10px;
 }
@@ -113,22 +120,25 @@ BODY{
 		}
 		set_data_toggle_text(is_gif_active);
     });
-    div_rnd.addEventListener('mousemove',function(){
+    div_rnd.addEventListener('mousemove',function(event){
 		if(is_mousedown){
-			d.body.style.backgroundColor = ret_rnd_color(event.offsetX, event.offsetY);
+			var e = e || event;
+
+			var target = e.target || e.srcElement,
+				rect = target.getBoundingClientRect(),
+				offsetX = e.clientX - rect.left,
+				offsetY = e.clientY - rect.top;
+
+			d.body.style.backgroundColor = ret_rnd_color(offsetX, offsetY);
 			div_rnd.childNodes[0].nodeValue = d.body.style.backgroundColor;
 		}
     });
-    div_rnd.addEventListener('mouseup',function(){
+    d.body.addEventListener('mouseup',function(){
 		is_mousedown = false;
     });
     div_rnd.addEventListener('mousedown',function(){
 		is_mousedown = true;
     });
-	d.body.addEventListener('selectstart',function(){
-		event.preventDefault()
-		return false;
-	});
     span_white.addEventListener('click',function(){
 		d.body.style.backgroundColor = "#fff";
     });
