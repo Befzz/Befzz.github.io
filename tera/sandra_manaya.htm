@@ -10,12 +10,13 @@ BODY{
 	width:255px;
 	height:40px;
 	border:1px solid black;
-	padding:10px 0px 0px 0px;
+	padding:16px 0px 0px 0px;
 	margin:10px;
 	cursor:ew-resize;
 	text-align:center;
 	background: linear-gradient(45deg, #000, #fff);
 	font-weight:bold;
+	font-family: sans-serif;
 	display:inline-block;
 }
 #span_help{
@@ -40,19 +41,22 @@ BODY{
 }
 #prj_name a{
 	text-decoration: none;
-	font-size:14px;
+	font-size:15px;
 	color:rgb(209, 72, 54);
+	padding:5px;
 }
 #top_info a{
 	text-decoration: none;
+	padding:5px;
 }
 #prj_name a:hover,#top_info a:hover{
+	background-color: #000;
 	text-decoration: underline;
-	color: blue;
 }
 </style>
+<title>TERA(c): Sandra Manaya (messenger)</title>
 </head>
-<body><a href="xd">test</a>
+<body>
 <div id="top_info">Image hosting by <a style="color:rgb(133, 191, 37)" href="http://imgur.com">Imgur.</a> WEB hosting by <a style="color:rgb(65, 131, 196)" href="http://github.com">GitHub</a></div>
 <div id="prj_name">TERA(c): <b>Sandra Manaya</b> (messenger) <a href="https://drive.google.com/file/d/0Bw4aUkFXvXqXUzNPcE5EM2pXS1k/view?usp=sharing">Full size GIF ) 1080p ) 26 Mb ) Gdrive</a></div>
 <div><img src="http://i.imgur.com/YfxZhWu.gif" /></div>
@@ -67,8 +71,6 @@ BODY{
 		if(is_mousedown){
 			d.body.style.backgroundColor = ret_rnd_color(event.offsetX, event.offsetY);
 			div_rnd.childNodes[0].nodeValue = d.body.style.backgroundColor;
-			div_rnd.style.color = d.body.style.backgroundColor;
-			console.log(event.offsetY)
 		}
     });
     div_rnd.addEventListener('mouseup',function(){
@@ -107,3 +109,4 @@ BODY{
     return "rgb(" + rri(r,0) + ","+rri(r,1)+","+rri(r,2) + ")";
   }
 </script>
+</body></html>
