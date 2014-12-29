@@ -1,0 +1,129 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=cyrillic-ext,latin' rel='stylesheet' type='text/css'>
+<style type="text/css">
+HTML,BODY{
+	padding: 0;
+	margin: 0;
+	cursor: default;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+#rnd_color{
+	width:255px;
+	height:30px;
+	border:1px solid gray;
+	padding:16px 0px 0px 0px;
+	margin:10px;
+	cursor:ew-resize;
+	text-align:center;
+	background: linear-gradient(45deg, #000, #fff);
+	font-weight:bold;
+	font-family: sans-serif;
+	display:inline-block;
+}
+#span_help{
+	padding:6px 10px;
+	font-weight:bold;
+	cursor:pointer;
+	border:1px solid gray;
+	background-color:white;
+	margin:0px 0px 0px 10px;
+	display:inline-block;
+	font-family: 'Open Sans', sans-serif;
+}
+#top_info{
+	border-bottom: 1px solid rgba(0,0,0,.4);
+	text-align: right;
+	padding: 6px 40px 3px 0px;
+}
+#prj_name{
+	color:rgba(0,0,0,.5);
+	font-family: 'Open Sans', sans-serif;
+	font-size:20px;
+	padding:7px;
+}
+#prj_name a{
+	text-decoration: none;
+	font-size:15px;
+	color:rgb(209, 72, 54);
+	padding:5px;
+}
+#top_info a{
+	text-decoration: none;
+	padding:5px;
+}
+#prj_name a:hover,#top_info a:hover{
+	background-color: #000;
+	text-decoration: underline;
+}
+#data_toggle{
+	border:1px solid gray;
+	padding:5px;
+	display:inline-block;
+	font-family: 'Open Sans', sans-serif;
+	cursor: pointer;
+	background-color: rgba(200,200,200,.6);
+	margin:10px;
+}
+#left_part,#right_part{
+	display: inline-block;
+}
+#left_part{
+	float:left;
+	text-align:center;
+}
+#right_part{
+	white-space: nowrap;
+	margin-left:10px;
+}
+#two_parts{
+	white-space: nowrap;
+}
+</style>
+<title>TERA(c): Sandra Manaya (image)</title>
+</head>
+<body><div id="two_parts"><div id="left_part"><div id="top_info">Image hosting by <a style="color:rgb(133, 191, 37)" href="http://imgur.com">Imgur.</a><br/>WEB hosting by <a style="color:rgb(65, 131, 196)" href="http://github.com">GitHub</a></div>
+<div id="prj_name">TERA(c): <b>Sandra Manaya</b></div>
+<div id="data_toggle">&nbsp;</div></div><div id="right_part">
+<img id="v1_container" height="100%" src="http://i.imgur.com/vC9hQ5y.png" />
+<img id="v2_container" height="100%" style="display:none;" src="http://i.imgur.com/b4UWE7B.png" /></div></div>
+<script type="text/javascript">
+  var d=document,img;
+
+  var is_first_active = false;
+  
+  addEventListener('load',function(){
+    div_rnd = d.getElementById("rnd_color");
+	span_white = d.getElementById("span_help");
+	div_toggle = d.getElementById("data_toggle");
+	v1_container = d.getElementById("v1_container");
+	v2_container = d.getElementById("v2_container");
+	
+	data_toggle.title = "1 Mbyte / 8 Mbytes";
+	function set_data_toggle_text(to_gif) {
+		div_toggle.innerHTML = to_gif?"ver. A / <b>ver. B</b>":"<b>ver. A</b> / ver. B";
+	}
+    div_toggle.addEventListener('mousedown',function(){
+		is_first_active = !is_first_active;
+		if( is_first_active ) {
+			v1_container.style.display = 'none';
+			v2_container.style.display = 'block';
+
+		} else {
+			v1_container.style.display = 'block';
+			v2_container.style.display = 'none';
+
+		}
+		set_data_toggle_text(is_first_active);
+    });
+	
+	set_data_toggle_text()
+  });
+
+</script>
+</body></html>
