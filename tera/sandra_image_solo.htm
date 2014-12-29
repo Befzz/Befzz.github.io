@@ -61,14 +61,14 @@ HTML,BODY{
 	background-color: #000;
 	text-decoration: underline;
 }
-#data_toggle{
+#data_toggle,#data_toggle2{
 	border:1px solid gray;
 	padding:5px;
 	display:inline-block;
 	font-family: 'Open Sans', sans-serif;
 	cursor: pointer;
 	background-color: rgba(200,200,200,.6);
-	margin:10px;
+	margin:3px;
 }
 #left_part,#right_part{
 	display: inline-block;
@@ -89,7 +89,7 @@ HTML,BODY{
 </head>
 <body><div id="two_parts"><div id="left_part"><div id="top_info">Image hosting by <a style="color:rgb(133, 191, 37)" href="http://imgur.com">Imgur.</a><br/>WEB hosting by <a style="color:rgb(65, 131, 196)" href="http://github.com">GitHub</a></div>
 <div id="prj_name">TERA(c): <b>Sandra Manaya</b></div>
-<div id="data_toggle">&nbsp;</div></div><div id="right_part">
+<div id="data_toggle">ver. A</div><div id="data_toggle2">ver. B</div></div><div id="right_part">
 <img id="v1_container" height="100%" src="http://i.imgur.com/vC9hQ5y.png" />
 <img id="v2_container" height="100%" style="display:none;" src="http://i.imgur.com/b4UWE7B.png" /></div></div>
 <script type="text/javascript">
@@ -101,28 +101,24 @@ HTML,BODY{
     div_rnd = d.getElementById("rnd_color");
 	span_white = d.getElementById("span_help");
 	div_toggle = d.getElementById("data_toggle");
+	div_toggle2 = d.getElementById("data_toggle2");
 	v1_container = d.getElementById("v1_container");
 	v2_container = d.getElementById("v2_container");
 	
 	data_toggle.title = "1 Mbyte / 8 Mbytes";
 	function set_data_toggle_text(to_gif) {
-		div_toggle.innerHTML = to_gif?"ver. A / <b>ver. B</b>":"<b>ver. A</b> / ver. B";
+		div_toggle.style.fontWeight=to_gif?"bold":"normal";
+		div_toggle2.style.fontWeight=!to_gif?"bold":"normal";
+		v1_container.style.display = !to_gif?'none':'block';
+		v2_container.style.display = to_gif?'none':'block';
 	}
-    div_toggle.addEventListener('mousedown',function(){
-		is_first_active = !is_first_active;
-		if( is_first_active ) {
-			v1_container.style.display = 'none';
-			v2_container.style.display = 'block';
-
-		} else {
-			v1_container.style.display = 'block';
-			v2_container.style.display = 'none';
-
-		}
-		set_data_toggle_text(is_first_active);
+    div_toggle.addEventListener('mouseover',function(){
+		set_data_toggle_text(true);
     });
-	
-	set_data_toggle_text()
+	div_toggle2.addEventListener('mouseover',function(){
+		set_data_toggle_text(false);
+    });
+	set_data_toggle_text(true)
   });
 
 </script>
