@@ -4,7 +4,8 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 <title>((MeOkay))</title>
 <style type="text/css">
-BODY{background-color:#fafafa;}
+BODY{background-color:#fafafa;
+	font-family: Arial;}
 #div_welcome{
 	cursor: default;
 	font-size: 22px;
@@ -26,17 +27,129 @@ BODY{background-color:#fafafa;}
 	padding:10px;
 	border:2px groove #eee;
 }
+.ts_info{
+	font-size:12px;
+	color: #aaa;
+	display: inline-block;
+	width: 150px;
+}
 A{
 	font-family: Arial;
 	text-decoration: none;
 	font-size: 16px;
 }
+#id_refresh_ts{
+	padding: 2px 5px;
+	cursor: hand;
+	margin-left: 12px;
+	font-size: 14px;
+	border: 2px #ddd outset;
+	background-color: #fff;
+	
+}
+#ts_status{
+	font-family: Arial;
+	font-size: 14px;
+	cursor: default;
+	border-top:2px solid #ddd;
+	//margin-top: 10px;
+	background-color: #fafafa;
+	padding: 8px;
+}
+#ts_head{
+	background-color: #fafafa;
+	padding: 5px 5px 15px 5px;
+	border-top:2px solid gray;
+}
 </style>
+<script>
+var XMLHttpFactories = [
+    function () {return new XMLHttpRequest()},
+    function () {return new ActiveXObject("Msxml2.XMLHTTP")},
+    function () {return new ActiveXObject("Msxml3.XMLHTTP")},
+    function () {return new ActiveXObject("Microsoft.XMLHTTP")}
+];
+
+function createXMLHTTPObject() {
+    var xmlhttp = false;
+    for (var i=0;i<XMLHttpFactories.length;i++) {
+        try {
+            xmlhttp = XMLHttpFactories[i]();
+        }
+        catch (e) {
+            continue;
+        }
+        break;
+    }
+    return xmlhttp;
+}
+var d=document;
+var btn_refresh, div_ts_status, req;
+function update_ts_status() {
+	//console.log(req.readyState);
+	btn_refresh.innerHTML = text_refreshing;
+	if( req.readyState != 0 && req.readyState != 4){
+		return;
+	}
+	
+	req.open('GET',"http://meokay.ru:81/get_ts_status_plz", true);
+	req.onreadystatechange = on_req_done;
+	req.send();
+	req.onerror = function(e){
+		//console.log(e)
+		div_ts_status.innerHTML = "Статус: <b style='font-family:Arial;font-size:12px;color:#aa3333;'>ПК и ТС возможно выключены.</b>";
+		btn_refresh.innerHTML = text_refresh;
+	}
+}
+addEventListener('load',function(){
+	btn_refresh = d.getElementById('id_refresh_ts');
+	div_ts_status = d.getElementById('ts_status');
+	btn_refresh.addEventListener('click',function(){
+		update_ts_status();
+	});
+	
+	req = createXMLHTTPObject();
+	
+	//console.log('doc loaded');
+	update_ts_status();
+});
+var text_refresh = "Refresh",
+text_refreshing = "Wait...";
+function parse_req(responseText) {
+	var o = JSON.parse(responseText);
+	//console.log(o);
+	if(o['error'] != 'no') {
+		div_ts_status.innerHTML = "Статус:<br/><b style='font-family:Arial;font-size:12px;color:#aa3333;'><span style='color:#33aa33'>ПК включен</span><br/>ТС возможно выключен.</b>";
+		btn_refresh.innerHTML = text_refresh;
+		return;
+	}
+	var res =  "Обновлено " + new Date().toLocaleTimeString() + "</br>";
+	for(var i=0,div,user;i<o['users'].length;i++) {
+		user = o['users'][i];
+		// client_country connection_client_ip
+		if(user['client_country'] == undefined) {
+			user['client_country'] = '??';
+		}
+		res += "<span class='ts_info'>" + i + " " + user['client_country'] + " " +user['connection_client_ip'] +" </span>" + user['client_nickname'] + "<br/>"
+	}
+	div_ts_status.innerHTML = res;//JSON.parse(req.responseText)['users'].length;
+	btn_refresh.innerHTML = text_refresh;
+}
+function on_req_done() {
+	if (req.readyState != 4) return;
+	if (req.status != 200 && req.status != 304) {
+		return;
+	}
+	//console.log(req.status, req.responseText);
+	parse_req( req.responseText );
+}
+</script>
 </head>
 <body><center>
 <div id="div_container">
 <div id="div_welcome">MeOkay</div><br/>
 Рендеры: <br/>&nbsp;&nbsp;&nbsp;<a href="/tera">Shandra Manaya</a><br/><br/>
-TeamSpeak3: <br/>&nbsp;&nbsp;&nbsp;<a href="ts3server://meokay.ru">ts3server://meokay.ru</a><br/>
+<div id="ts_head">TeamSpeak3: <br/>&nbsp;&nbsp;&nbsp;<a href="ts3server://meokay.ru">ts3server://meokay.ru</a><span id="id_refresh_ts">Refresh</span></div>
+<div id="ts_status"></div>
 </div>
 </body></html>
