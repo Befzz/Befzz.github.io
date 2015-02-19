@@ -4,28 +4,38 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 <title>((MeOkay))</title>
 <style type="text/css">
-BODY{background-color:#fafafa;
-	font-family: Arial;}
-#div_welcome{
+BODY {
+	background-color:#fafafa;
+	font-family: Arial;
+}
+#div_welcome {
 	cursor: default;
-	font-size: 22px;
+	font-size: 14px;
 	font-family: Arial;
 	font-weight: bold;
 	color: #621;
-	padding: 6px 6px 6px 26px;
-	border-bottom: 3px double #aaa;
-	margin-bottom: 12px;
-	text-align: left;
+	padding: 6px 35px 16px 26px;
+	border-bottom: 4px double #ddd;
+	margin-bottom: 1px;
+	text-align: right;
 }
-#div_container{
-	font-size: 18px;
+#div_container {
+	font-size: 14px;
 	align:center;
 	text-align: left;
 	background-color: #f0f0f0;
-	height:90%;
+	height:85%;
 	width:600px;
 	padding:10px;
-	border:2px groove #eee;
+	border:2px groove #efefef;
+}
+#div_renders_head {
+	margin: 0px 0px 4px 0px;
+	font-family: Lucida Console;
+}
+#div_end {
+	padding: 5px;
+	color: #aaa;
 }
 .ts_info{
 	font-size:12px;
@@ -33,33 +43,39 @@ BODY{background-color:#fafafa;
 	display: inline-block;
 	width: 150px;
 }
-A{
+a {
 	font-family: Arial;
 	text-decoration: none;
-	font-size: 16px;
+	font-size: 14px;
+	color: blue;
 }
-#id_refresh_ts{
+#id_refresh_ts {
 	padding: 2px 5px;
 	cursor: hand;
 	margin-left: 12px;
-	font-size: 14px;
-	border: 2px #ddd outset;
+	font-size: 12px;
+	border: 1px #efefef outset;
 	background-color: #fff;
 	
 }
-#ts_status{
+#ts_head {
+	background-color: #f7f7f7;
+	padding: 14px 5px 15px 15px;
+	border-top:2px solid #ddd;
+	font-family: Lucida Console;
+}
+#ts_status {
 	font-family: Arial;
 	font-size: 14px;
 	cursor: default;
-	border-top:2px solid #ddd;
+	border-top:1px solid #eee;
 	//margin-top: 10px;
-	background-color: #fafafa;
+	background-color: #f7f7f7;
 	padding: 8px;
 }
-#ts_head{
-	background-color: #fafafa;
-	padding: 5px 5px 15px 5px;
-	border-top:2px solid gray;
+hr {
+	margin:7px 0px;
+	border:1px solid #f0f0f0;
 }
 </style>
 <script>
@@ -119,18 +135,23 @@ function parse_req(responseText) {
 	var o = JSON.parse(responseText);
 	//console.log(o);
 	if(o['error'] != 'no') {
-		div_ts_status.innerHTML = "Статус:<br/><b style='font-family:Arial;font-size:12px;color:#aa3333;'><span style='color:#33aa33'>ПК включен</span><br/>ТС возможно выключен.</b>";
+		div_ts_status.innerHTML = "Status:<br/><b style='font-family:Arial;font-size:12px;color:#aa3333;'><span style='color:#33aa33'>ПК включен</span><br/>ТС возможно выключен.</b>";
 		btn_refresh.innerHTML = text_refresh;
 		return;
 	}
-	var res =  "Обновлено " + new Date().toLocaleTimeString() + "</br>";
-	for(var i=0,div,user;i<o['users'].length;i++) {
-		user = o['users'][i];
-		// client_country connection_client_ip
-		if(user['client_country'] == undefined) {
-			user['client_country'] = '??';
+	var res =  "Updated " + new Date().toLocaleTimeString() + "</br>";
+	res += "Status: <b style='font-family:Arial;font-size:12px;color:#33aa33;'>ПК и ТС включены.</b>";
+	res += "</br> TS users: " + o['users'].length + "<br/><hr/>";
+	if( o['users'].length == 0) {
+	} else {
+		for(var i=0,div,user;i<o['users'].length;i++) {
+			user = o['users'][i];
+			// client_country connection_client_ip
+			if(user['client_country'] == undefined) {
+				user['client_country'] = '??';
+			}
+			res += "<span class='ts_info'>" + i + " " + user['client_country'] + " " +user['connection_client_ip'] +" </span>" + user['client_nickname'] + "<br/>"
 		}
-		res += "<span class='ts_info'>" + i + " " + user['client_country'] + " " +user['connection_client_ip'] +" </span>" + user['client_nickname'] + "<br/>"
 	}
 	div_ts_status.innerHTML = res;//JSON.parse(req.responseText)['users'].length;
 	btn_refresh.innerHTML = text_refresh;
@@ -147,9 +168,10 @@ function on_req_done() {
 </head>
 <body><center>
 <div id="div_container">
-<div id="div_welcome">MeOkay</div><br/>
-Рендеры: <br/>&nbsp;&nbsp;&nbsp;<a href="/tera">Shandra Manaya</a><br/><br/>
-<div id="ts_head">TeamSpeak3: <br/>&nbsp;&nbsp;&nbsp;<a href="ts3server://meokay.ru">ts3server://meokay.ru</a><span id="id_refresh_ts">Refresh</span></div>
+<div id="div_welcome">(( MeOkay ))</div><br/>
+<div id="div_renders_head">Рендеры: </div>&nbsp;&nbsp;1.&nbsp;<a href="/tera">Shandra Manaya</a><br/>
+&nbsp;&nbsp;2.&nbsp;<a href="http://forum.tera-online.ru/topic/4671/">Other on tera-online.ru</a><br/><br/>
+<div id="ts_head">TS3 &nbsp;&nbsp;<a href="ts3server://meokay.ru">ts3server://meokay.ru</a><span id="id_refresh_ts">Refresh</span></div>
 <div id="ts_status"></div>
-</div>
+</div><div id="div_end">2015 (c)</div>
 </body></html>
