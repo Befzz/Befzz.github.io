@@ -1,0 +1,38 @@
+<head>
+<script>
+var g_ctx;
+var CANVAS_WIDTH = 400;
+var CANVAS_HEIGHT = 400;
+
+function loop() {
+    var imgdata;
+    imgdata = g_ctx.getImageData(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+    
+    //// Not a fix:
+    // setTimeout(function(){
+        // g_ctx.getImageData(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+    // },0);
+}
+
+function onload() {
+    var oCanvas;
+    oCanvas = document.getElementById('canvasid');
+    oCanvas.width = CANVAS_WIDTH;
+    oCanvas.height = CANVAS_HEIGHT;
+    
+    g_ctx = oCanvas.getContext('2d');
+    g_ctx.fillStyle = "#000";
+    g_ctx.fillRect(10,10,CANVAS_WIDTH-20,CANVAS_HEIGHT-20);
+    
+    setInterval(loop,0);
+}
+
+addEventListener('load',onload);
+</script>
+</head>
+<body style="font-family:Verdana; font-size: 14px;">
+<div style="font-size:16px;padding:5px;border:1px solid #eee;margin-bottom:6px;">Bug: canvas content become invisible after some Chrome Tab switches(<b>Use 2 tabs and CTRL+TAB</b>)</div>
+<div>1. NOT happens if: Disable <b>Accelerated 2D canvas</b> (chrome://flags/#disable-accelerated-2d-canvas) </div>
+<div>2. NOT happens if: Uncheck <b>Use hardware acceleration when available</b> (Settings)</div>
+<canvas style="border: 1px solid gray; margin: 20px;" id="canvasid"><canvas>
+</body>
