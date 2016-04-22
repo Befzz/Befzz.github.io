@@ -1,0 +1,109 @@
+BODY {
+	font-family: Verdana;
+	text-align:center;
+	margin-top:40px;
+	background-color: #eeeef3;
+	cursor: default;
+	overflow:hidden;
+}
+CANVAS {
+	background-color: #fff;
+}
+#mainCanvas {
+	display: block;
+}
+#recordCanvas1s,#recordCanvas30s {
+	display: none;
+}
+TABLE {
+	border:4px solid #ccc;
+	cursor: default;
+	border-radius: 25px;
+	background-color: #ddd;
+}
+BUTTON {
+	margin: 5px;
+	display: inline-block;
+	border: 1px solid #ccc;
+	width: 105px;
+	background-color: #f0f0f0;
+	padding:9px 6px;
+	cursor: pointer;
+}
+
+#btnContainer {
+	min-width: 125px;
+	padding: 40px 0px;
+	font-size: 14px;
+}
+#idKeyA, #idKeyD {
+	margin: 2px;
+	width: 30px;
+	text-align: center;
+	cursor: pointer;
+	color: #888;
+}
+#idButtonSaveImage{
+	cursor: default;
+}
+#tutor_hi {
+	width:100%;
+	height: 100%;
+	border: 25px solid #ddd;
+	position: absolute;
+	margin:0;
+	left:-25px;
+	top: -25px;
+	border-radius:200px;
+	background-color: #eee;
+	cursor : pointer;
+	display: none;
+}
+#tutor_sync {
+	margin:175px 0 55px 0;
+	padding:5px 10px;
+	background-color: #0d0;
+	display:inline-block;
+}
+.key {
+	border : 2px groove gray;
+	border-radius: 5px;
+	display: inline-block;
+	width:25px;
+	height:25px;
+	font-weight: bold;
+	padding: 3px 5px 5px 3px;
+	margin:2px;
+	background-color: #fff;
+}
+#tutor_mouse{
+	margin-top:40px;
+	border : 2px groove gray;
+	border-radius: 12px;
+	display: inline-block;
+	width:70px;
+	height:100px;
+	padding:0;
+	background-color:#333;
+	text-shadow: 0 0 19px #0f0;
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 22px;
+	color: #4a4;
+	position:relative;
+}
+#tutor_mouse > SPAN{
+	border : 1px solid #aaa;
+	border-bottom: none;
+	border-radius: 7px;
+	margin:1px;
+	display: inline-block;
+	width:30px;
+	height:30px;
+}
+#tutor_mouse > DIV {
+	margin-top:16px;
+}
+#idOptMouse1000, [for=idOptMouse1000]{
+	cursor: pointer;
+}

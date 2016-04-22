@@ -1,0 +1,24 @@
+2016-04-22 Andrey Balashov
++ IE 11 capability(mousemove || Save as image)
+
+2016-04-11 Andrey Balashov
++ 15 sec. instead of 30
++ Fixed "100% Keys"
++ Fixed Firefox events.
+
+2016-03-23 Andrey Balashov
++ Some UI
++ Tutor(WASD + Mouse)
++ Options <-> LocalStorage
++ "Save as image"
+
+2016-03-18 Andrey Balashov
++ Auto saving records.
++ Able to rebind keys.
++ Cross-browser fixes
+
+2016-03-17 Andrey Balashov
+* UI rework.
+
+2016-03-16 Andrey Balashov
+* Initial release.

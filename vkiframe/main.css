@@ -1,0 +1,77 @@
+BODY, HTML {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+TABLE {
+	/*border: 1px solid red;*/
+	width: 100%;
+	/*height: 100%;*/
+	/*border-collapse: collapse;*/
+	border-spacing: 0px;
+	background-color: #f5f5f5;
+}
+TABLE TD {
+	padding: 0;
+}
+#panel-left {
+	cursor: default;
+	width: 200px;
+	background-color: #f5f5f5;
+}
+#panel-left DIV {
+	border:1px solid #777;
+	margin: 4px;
+}
+#panel-display {
+    border-radius: 25px 0px 0px 25px;
+	padding: 10px;
+	background-color: #aaa;
+	border-left: 3px solid #666;
+	text-align: center;
+}
+#slider-resolution{
+	width: 50px;
+	height: 75%;
+	/*border: 1px solid #555;*/
+	display: inline-block;
+	margin-left: 15px;
+}
+#slider-resolution SPAN {
+	display: inline-block;
+	border-top: 1px solid #777;
+	width: 50px;
+	position: absolute;
+	font-size: 12px;
+	overflow: hidden;
+	font-family: sans-serif;
+	text-align: center;
+	padding-top: 4px;
+}
+#res-mover, #inch-mover {
+	width: 48px;
+	border: 3px solid #4a2;
+	border-radius: 7px;
+	position: absolute;
+	height: 18px; 
+	margin-left: -1px;
+}
+#inch-mover {
+
+	margin-left: -12px;
+}
+#display {
+	border: 1px solid #000;
+	display: inline-block;
+	background-color: #222;
+}
+#toucher-inch {
+	height: 50%;
+	width: 30px;
+	position: absolute;
+	display: inline:block;
+	border: 1px solid gray;
+	margin-left: 20px;
+}

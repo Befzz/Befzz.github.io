@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+<title>((MeOkay))</title>
+<style type="text/css">
+BODY {
+	background-color:#fafafa;
+	font-family: Arial;
+}
+#div_welcome {
+	cursor: default;
+	font-size: 14px;
+	font-family: Arial;
+	font-weight: bold;
+	color: #621;
+	padding: 6px 35px 16px 26px;
+	border-bottom: 4px double #ddd;
+	margin-bottom: 1px;
+	text-align: right;
+}
+#div_container {
+	font-size: 14px;
+	align:center;
+	text-align: left;
+	background-color: #f0f0f0;
+	height:85%;
+	width:600px;
+	padding:10px;
+	border:2px groove #efefef;
+}
+#div_renders_head {
+	margin: 0px 0px 4px 0px;
+	font-family: Lucida Console;
+}
+#div_end {
+	padding: 5px;
+	color: #aaa;
+}
+.ts_info{
+	font-size:12px;
+	color: #aaa;
+	display: inline-block;
+	width: 150px;
+}
+a {
+	font-family: Arial;
+	text-decoration: none;
+	font-size: 14px;
+	color: blue;
+}
+#id_refresh_ts {
+	padding: 2px 5px;
+	cursor: hand;
+	margin-left: 12px;
+	font-size: 12px;
+	border: 1px #efefef outset;
+	background-color: #fff;
+	
+}
+#ts_head {
+	background-color: #f7f7f7;
+	padding: 14px 5px 15px 15px;
+	border-top:2px solid #ddd;
+	font-family: Lucida Console;
+}
+#ts_status {
+	font-family: Arial;
+	font-size: 14px;
+	cursor: default;
+	border-top:1px solid #eee;
+	//margin-top: 10px;
+	background-color: #f7f7f7;
+	padding: 8px;
+}
+hr {
+	margin:7px 0px;
+	border:1px solid #f0f0f0;
+}
+</style>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter30842421 = new Ya.Metrika({
+                    id:30842421,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/30842421" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<script>
+var XMLHttpFactories = [
+    function () {return new XMLHttpRequest()},
+    function () {return new ActiveXObject("Msxml2.XMLHTTP")},
+    function () {return new ActiveXObject("Msxml3.XMLHTTP")},
+    function () {return new ActiveXObject("Microsoft.XMLHTTP")}
+];
+
+function createXMLHTTPObject() {
+    var xmlhttp = false;
+    for (var i=0;i<XMLHttpFactories.length;i++) {
+        try {
+            xmlhttp = XMLHttpFactories[i]();
+        }
+        catch (e) {
+            continue;
+        }
+        break;
+    }
+    return xmlhttp;
+}
+var d=document;
+var btn_refresh, div_ts_status, req;
+function update_ts_status() {
+	//console.log(req.readyState);
+	btn_refresh.innerHTML = text_refreshing;
+	if( req.readyState != 0 && req.readyState != 4){
+		return;
+	}
+	
+	req.open('GET',"http://meokay.ru:81/get_ts_status_plz", true);
+	req.onreadystatechange = on_req_done;
+	req.send();
+	req.onerror = function(e){
+		//console.log(e)
+		div_ts_status.innerHTML = "Статус: <b style='font-family:Arial;font-size:12px;color:#aa3333;'>ПК и ТС возможно выключены.</b>";
+		btn_refresh.innerHTML = text_refresh;
+	}
+}
+addEventListener('load',function(){
+	btn_refresh = d.getElementById('id_refresh_ts');
+	div_ts_status = d.getElementById('ts_status');
+	btn_refresh.addEventListener('click',function(){
+		update_ts_status();
+	});
+	
+	req = createXMLHTTPObject();
+	
+	//console.log('doc loaded');
+	update_ts_status();
+});
+var text_refresh = "Refresh",
+text_refreshing = "Wait...";
+function parse_req(responseText) {
+	var o = JSON.parse(responseText);
+	//console.log(o);
+	if(o['error'] != 'no') {
+		div_ts_status.innerHTML = "Status:<br/><b style='font-family:Arial;font-size:12px;color:#aa3333;'><span style='color:#33aa33'>ПК включен</span><br/>ТС возможно выключен.</b>";
+		btn_refresh.innerHTML = text_refresh;
+		return;
+	}
+	var res =  "Updated " + new Date().toLocaleTimeString() + "</br>";
+	res += "Status: <b style='font-family:Arial;font-size:12px;color:#33aa33;'>ПК и ТС включены.</b>";
+	res += "</br> TS users: " + o['users'].length + "<br/><hr/>";
+	if( o['users'].length == 0) {
+	} else {
+		for(var i=0,div,user;i<o['users'].length;i++) {
+			user = o['users'][i];
+			// client_country connection_client_ip
+			if(user['client_country'] == undefined) {
+				user['client_country'] = '??';
+			}
+			res += "<span class='ts_info'>" + i + " " + user['client_country'] + " " +user['connection_client_ip'] +" </span>" + user['client_nickname'] + "<br/>"
+		}
+	}
+	div_ts_status.innerHTML = res;//JSON.parse(req.responseText)['users'].length;
+	btn_refresh.innerHTML = text_refresh;
+}
+function on_req_done() {
+	if (req.readyState != 4) return;
+	if (req.status != 200 && req.status != 304) {
+		return;
+	}
+	//console.log(req.status, req.responseText);
+	parse_req( req.responseText );
+}
+</script>
+</head>
+<body><center>
+<div id="div_container">
+<div id="div_welcome">(( MeOkay ))</div><br/>
+<div id="div_renders_head">Рендеры: </div>&nbsp;&nbsp;1.&nbsp;<a href="/tera">Shandra Manaya</a><br/>
+&nbsp;&nbsp;2.&nbsp;<a href="http://forum.tera-online.ru/topic/4671/">Other on tera-online.ru</a><br/><br/>
+<div id="ts_head">TS3 &nbsp;&nbsp;<a href="ts3server://meokay.ru">ts3server://meokay.ru</a><span id="id_refresh_ts">Refresh</span></div>
+<div id="ts_status"></div>
+</div><div id="div_end">2015 (c)</div>
+</body></html>
