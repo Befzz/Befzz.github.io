@@ -38,14 +38,6 @@ function Glspace(container_name){
     canvas.obj = this;
 };
 
-Glspace.prototype.load_shader = function(in_shader_src, in_type) {
-    var scr = d.createElement("script");
-    scr.src = PATH_SHADERS + "/"+in_shader_src;
-    scr.addEventListener("load",function(){
-        this.type = in_type;
-    });
-    getById("head").appendChild(scr);
-}
 Glspace.prototype.get_shader = function(id) {
     var gl = this.gl;
     var shader;
