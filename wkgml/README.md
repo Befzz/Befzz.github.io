@@ -1,15 +1,14 @@
 
-![](http://befzz.github.io/wkgml/header_fixed2.png)
-### 1. Find and...  
-### 1. 찾기 및...
+![]( https://befzz.github.io/wkgml/header_fixed2.png  )
+
+### 1. Find and... (찾기 및...)
 ```css
 #article-list #article-list-category {
     border-top: 2px solid #8c8a8d;
     background: #FFF;
 }
 ```
-### replace:  
-### 및 교체:
+### replace:  ( 및 교체: )
 ```css
 #article-list #article-list-category {
     border-top: 2px solid #8c8a8d;
@@ -37,11 +36,11 @@ div#article-list-category>a:first-child {
 }
 ```
 
------
+<br><br><br><br><br>  
 
-![](http://befzz.github.io/wkgml/header_fixed_hider.png)
-### 2. Add...  
-### 2. 덧붙이다...
+![](https://befzz.github.io/wkgml/header_fixed_hider.png)
+
+### 2. Add... (덧붙이다...)
 ```css
 
 #article-list #article-option-area {
@@ -55,14 +54,13 @@ div#article-list-category>a:first-child {
     background: none;
 }
 ```
-
-----
-
-![](http://befzz.github.io/wkgml/wkgml_imgl.gif)
+ <br><br><br><br><br>  
 
 
-### 3. Add...  
-### 3. 덧붙이다...
+![](https://befzz.github.io/wkgml/wkgml_imgl.gif)
+
+
+### 3. Add... (덧붙이다...)
 ```css
 
 img#board-info-profile-img:hover{
@@ -97,4 +95,4 @@ img#board-info-profile-img:hover{
 
 ```
 
-442 =^^=
+### 442 =^^=
