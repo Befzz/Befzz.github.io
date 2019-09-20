@@ -1,3 +1,7 @@
+PC (Desktop) version only.  
+PC (데스크톱) 버전만 해당.
+
+<br><br><br><br><br>  
 
 ![]( https://befzz.github.io/wkgml/header_fixed2.png  )
 
@@ -36,7 +40,7 @@ div#article-list-category>a:first-child {
 }
 ```
 
-<br><br><br><br><br>  
+<br><br><br><br><br><br><br><br> <br>   
 
 ![](https://befzz.github.io/wkgml/header_fixed_hider.png)
 
@@ -54,7 +58,7 @@ div#article-list-category>a:first-child {
     background: none;
 }
 ```
- <br><br><br><br><br>  
+ <br><br><br><br><br><br><br><br> <br>   
 
 
 ![](https://befzz.github.io/wkgml/wkgml_imgl.gif)
@@ -62,10 +66,8 @@ div#article-list-category>a:first-child {
 
 ### 3. Add... (덧붙이다...)
 ```css
-
 img#board-info-profile-img:hover{
-  cursor: none;
-    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    cursor: none;
     animation: 0.35s 2 ease-in-out 0.6s alternate colorrot;
 }
 
@@ -92,6 +94,7 @@ img#board-info-profile-img:hover{
       filter:saturate(100%);
     }
 }
+
 
 ```
 
